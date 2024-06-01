@@ -10,12 +10,14 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
 def get_chrome_version():
-    try:
-        version = subprocess.check_output(["google-chrome", "--version"]).decode("utf-8").strip().split()[-1]
-        return version
-    except Exception as e:
-        print(f"Error fetching Chrome version: {e}")
-        return None
+    commands = ['google-chrome', 'chrome', 'chromium-browser', 'chromium']
+    for command in commands:
+        try:
+            version = subprocess.check_output([command, "--version"]).decode("utf-8").strip().split()[-1]
+            return version
+        except Exception as e:
+            print(f"Error fetching Chrome version with {command}: {e}")
+    return None
 
 def run_selenium_script():
     chrome_options = Options()
