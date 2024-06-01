@@ -1,4 +1,5 @@
 import time
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
@@ -8,13 +9,25 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
+def get_chrome_version():
+    try:
+        version = subprocess.check_output(["google-chrome", "--version"]).decode("utf-8").strip().split()[-1]
+        return version
+    except Exception as e:
+        print(f"Error fetching Chrome version: {e}")
+        return None
+
 def run_selenium_script():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    chrome_version = get_chrome_version()
+    if not chrome_version:
+        return "Could not determine the Chrome version installed on the server."
+
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(version=chrome_version).install()), options=chrome_options)
 
     driver.set_window_size(1024, 600)
     driver.maximize_window()
