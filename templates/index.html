@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Trend Analysis</title>
+</head>
+<body>
+    <h1>Twitter Trend Analysis</h1>
+    <button id="runScript">Run Selenium Script</button>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById("runScript").addEventListener("click", function() {
+            fetch("/run_script")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("results").innerHTML = `
+                        <h2>Results</h2>
+                        <p>Date & Time: ${data.timestamp}</p>
+                        <p>Trending Topics:</p>
+                        <ul>
+                            ${data.trends.map(topic => `<li>${topic}</li>`).join("")}
+                        </ul>
+                    `;
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
