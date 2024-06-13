@@ -35,6 +35,7 @@ def run_selenium_script():
             EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]/div/div[1]/div/div/div/button'))
         )
         popUp_button.click()
+        print("Pop-up closed successfully.")
     except Exception as e:
         print(f"No pop-up to close: {e}")
 
@@ -43,6 +44,7 @@ def run_selenium_script():
             EC.element_to_be_clickable((By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div[1]/div/div/div[3]/div[4]/a/div/span/span'))
         )
         signIn_button.click()
+        print("Sign-in button clicked.")
     except Exception as e:
         driver.quit()
         return f"Error during sign-in button click: {e}"
@@ -55,6 +57,7 @@ def run_selenium_script():
         )
         username_input.send_keys(username)
         username_input.send_keys(Keys.RETURN)
+        print("Username entered.")
     except Exception as e:
         driver.quit()
         return f"Error during username input: {e}"
@@ -67,6 +70,7 @@ def run_selenium_script():
         )
         password_input.send_keys(password)
         password_input.send_keys(Keys.RETURN)
+        print("Password entered.")
     except Exception as e:
         driver.quit()
         return f"Error during password input: {e}"
