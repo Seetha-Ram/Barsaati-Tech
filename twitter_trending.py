@@ -26,8 +26,8 @@ def run_selenium_script():
     time.sleep(5)  # Adjust the sleep time as needed
 
     # Log in to Twitter (optional, but recommended to see personalized trends)
-    username = '@Anonymo57498152'
-    password = '@Qwer1234'
+    username = 'Your User Name'
+    password = 'Your Password'
 
     try:
         # Close any pop-up if present
